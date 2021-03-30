@@ -1,4 +1,4 @@
-# APP_NAME_HERE
+# Music Discovery
 
 ## Table of Contents
 1. [Overview](#Overview)
