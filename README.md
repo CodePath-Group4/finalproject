@@ -8,7 +8,7 @@
 
 ## Overview
 ### Description
-APP_NAME allows people to favorite songs and see what songs are popular among other users of the app.
+Music Discovery allows people to favorite songs and see what songs are popular among other users of the app.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
