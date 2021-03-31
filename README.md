@@ -11,7 +11,6 @@
 Music Discovery allows people to favorite songs and see what songs are popular among other users of the app.
 
 ### App Evaluation
-[Evaluation of your app across the following attributes]
 - **Category:** Music
 - **Mobile:** Our app could also be made for desktop, but would mainly be for mobile devices.
 - **Story:** Allows users to see popular songs, like songs, and keep a list of their favorite songs.
