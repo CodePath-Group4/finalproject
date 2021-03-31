@@ -69,12 +69,13 @@ Music Discovery allows people to favorite songs and see what songs are popular a
     * On this screen the user will be able to change their password or logout of their account
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
 <img src="https://i.imgur.com/98LzM0F.png">
 
-### [BONUS] Digital Wireframes & Mockups
-https://www.figma.com/file/vK3XHi8MqddWZ54iFb2tlf/Untitled?node-id=0%3A1
-### [BONUS] Interactive Prototype
+Wireframe with navigation shown:
+<img src="https://i.imgur.com/o9zi5NB.png">
+
+Interactive wireframe:
+https://www.figma.com/proto/vK3XHi8MqddWZ54iFb2tlf/MusicDiscovery?node-id=2%3A23&scaling=scale-down&page-id=0%3A1
 
 ## Schema 
 [This section will be completed in Unit 9]
