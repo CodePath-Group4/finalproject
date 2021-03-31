@@ -15,9 +15,9 @@ Music Discovery allows people to favorite songs and see what songs are popular a
 - **Category:** Music
 - **Mobile:** Our app could also be made for desktop, but would mainly be for mobile devices.
 - **Story:** 
-- **Market:** 
-- **Habit:** 
-- **Scope:** 
+- **Market:** People who enjoy listening to music and seeing what music is currently popular is the market for this app.
+- **Habit:** This app could be used by users somewhat frequently in order to see new songs which are popularly liked by other users and update their own favorite songs.
+- **Scope:** Our app would start with simply showing what is popular among all users and could progress into a social network that users can use to see their friends favorite songs.
 
 ## Product Spec
 
@@ -35,6 +35,7 @@ Music Discovery allows people to favorite songs and see what songs are popular a
 
 * Songs display how many likes they have received from users
 * Users can view another user's profile to see their favorited songs
+* User can listen to a preview of songs
 
 ### 2. Screen Archetypes
 
