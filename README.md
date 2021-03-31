@@ -69,7 +69,7 @@ Music Discovery allows people to favorite songs and see what songs are popular a
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="https://i.imgur.com/98LzM0F.png">
 
 ### [BONUS] Digital Wireframes & Mockups
 https://www.figma.com/file/vK3XHi8MqddWZ54iFb2tlf/Untitled?node-id=0%3A1
