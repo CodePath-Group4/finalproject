@@ -78,10 +78,89 @@ https://www.figma.com/proto/vK3XHi8MqddWZ54iFb2tlf/MusicDiscovery?node-id=2%3A23
 <img src="InteractivePrototype.gif" width=250><br>
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+#### User
+   | Property  | Type      | Description  |
+   |-----------|-----------|--------------|
+   | userId    | String    | Unique id for the user post (default field) |
+   | username  | String    | Username of the user |
+   | password  | String    | Hashed password of the user |
+
+#### Favorites
+   | Property  | Type            | Description  |
+   |-----------|-----------------|--------------|
+   | userId    | Pointer to User | User who this favorite is associated with |
+   | songId    | Pointer to Song | Song which the user has favorited |
+
+#### Likes
+   | Property  | Type            | Description  |
+   |-----------|-----------------|--------------|
+   | userId    | Pointer to User | User who this favorite is associated with |
+   | songId    | Pointer to Song | Song which the user has liked |
+
+#### Song
+   | Property  | Type      | Description  |
+   |-----------|-----------|--------------|
+   | songId    | String    | Spotify ID of the song |
+   | name      | String    | Name of song |
+   | artist    | String    | Name of song artist |
+   | album     | String    | Name of album the song belongs to |
+   | image     | String    | URL to image of the art for the album which this song belongs to |
+   | likes     | Number    | Number of likes the song has received from users |
+   
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+- Login Screen
+   - POST requests
+      - Create new user
+      - Login
+- Song Search Screen
+   - POST requests
+      - Favorite a song
+      - Like a song
+   - GET requests
+      - Search songs
+   - DELETE requests
+      - Un-favorite a song
+      - Un-like a song
+- User Profile Screen
+   - GET requests
+      - Query all favorites from this user
+      - Query all likes from this user
+- Settings Screen
+   - PUT requests
+      - Change user password
+
+
+#### Example Network Requests
+POST, create new user:
+```
+ParseUser user = new ParseUser();
+user.setUsername(username);
+user.setPassword(password);
+// username and password are variables which hold the desired username and password for the user
+
+user.signUpInBackground(new SignUpCallback() {
+   @Override
+   public void done(ParseException e) {
+       if (e != null) {
+           Log.e(TAG, "Error creating user.", e);
+           return;
+       }
+       Log.i(TAG, "User successfully created.");
+   }
+});
+```
+
+GET, favorites:
+```
+ParseQuery<Favorite> query = ParseQuery.getQuery(Favorite.class);
+query.whereEqualTo(Favorite.KEY_USER, user);
+query.addDescendingOrder(Favorite.KEY_CREATED_AT);
+query.findInBackground(new FindCallback<Post>() {
+   @Override
+   public void done(List<Favorite> foundObjects, ParseException e) {
+       if (e != null) {
+           Log.e(TAG, "Problem getting favorites", e);
+           return;
+       }
+```
