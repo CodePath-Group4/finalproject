@@ -71,6 +71,7 @@ Music Discovery allows people to favorite songs and see what songs are popular a
 <img src="https://i.imgur.com/98LzM0F.png">
 
 Wireframe with navigation shown:
+
 <img src="https://i.imgur.com/o9zi5NB.png">
 
 Interactive wireframe:
