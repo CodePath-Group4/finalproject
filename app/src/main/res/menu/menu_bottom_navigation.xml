@@ -2,10 +2,11 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- TODO: Change the image used for the search fragment -->
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/home_outline_24"
-        android:title="Home"
+        android:title="Search"
         app:showAsAction="always" />
 
     <item

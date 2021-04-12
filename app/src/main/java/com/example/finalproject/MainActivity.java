@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment;
 
-                bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.home_outline_24);
+                bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.home_outline_24);  // TODO: Change the image used for the search fragment
                 bottomNavigationView.getMenu().getItem(1).setIcon(R.drawable.user_outline_24);
                 bottomNavigationView.getMenu().getItem(2).setIcon(R.drawable.cog_empty);
 
                 switch(item.getItemId()) {
                     case R.id.action_search:
                         Log.i(TAG, "action_search");
-                        item.setIcon(R.drawable.home_filled_24);
+                        item.setIcon(R.drawable.home_filled_24);    // TODO: Change the image used for the search fragment
                         fragment = new SearchFragment();
                         break;
                     case R.id.action_profile:
