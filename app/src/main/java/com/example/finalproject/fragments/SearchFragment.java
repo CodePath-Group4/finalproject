@@ -1,13 +1,6 @@
 package com.example.finalproject.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.codepath.asynchttpclient.AsyncHttpClient;
+import com.codepath.asynchttpclient.RequestHeaders;
+import com.codepath.asynchttpclient.RequestParams;
+import com.codepath.asynchttpclient.callback.TextHttpResponseHandler;
 import com.example.finalproject.R;
 import com.example.finalproject.SongsAdapter;
 import com.example.finalproject.models.Song;
@@ -23,12 +26,15 @@ import com.example.finalproject.models.Song;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Headers;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SearchFragment extends Fragment {
 
     private static final String TAG = "SearchFragment";
+    private static final String API_URL = "https://api.spotify.com/v1/";
 
     private EditText etSearch;
     private Button btnSubmit;
@@ -86,6 +92,34 @@ public class SearchFragment extends Fragment {
     }
 
     protected void searchSongs(String searchText) {
+
+        String response = requestAccessToken();
         // TODO: Complete search
     }
+
+    protected String requestAccessToken() {
+        // Trying to do Client Credentials Flow from https://developer.spotify.com/documentation/general/guides/authorization-guide/
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        RequestHeaders headers = new RequestHeaders();
+        headers.put("Authorization", "Basic: edbe0491df78468ea5314bdd1c4cc7b9");    // Not too sure this one is done properly
+        params.put("grant_type", "client_credentials");
+
+        // I believe this is meant to be a post request, but I can't seem to figure out how to do that
+        client.get("https://accounts.spotify.com/api/token", params, new TextHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, String response) {
+                Log.i(TAG, "requestAccessToken onSuccess");
+                Log.d(TAG, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String errorResponse, Throwable t) {
+                Log.e(TAG, "requestAccessToken onFailure, " + errorResponse);
+            }
+        });
+
+        return null;
+    }
+    // Could maybe try using this instead if we can't figure out the above https://github.com/thelinmichael/spotify-web-api-java
 }
