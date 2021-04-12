@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.finalproject.R;
 import com.example.finalproject.SongsAdapter;
@@ -65,6 +66,13 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 Log.i(TAG, "btnSubmit onClick");
 
+                String searchText = etSearch.getText().toString();
+                if (searchText.isEmpty()) {
+                    Toast.makeText(getContext(), "Search cannot be empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                searchSongs(searchText);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -75,5 +83,9 @@ public class SearchFragment extends Fragment {
 
         adapter = new SongsAdapter(getContext(), songs);
         rvSearchResults.setAdapter(adapter);
+    }
+
+    protected void searchSongs(String searchText) {
+        // TODO: Complete search
     }
 }
