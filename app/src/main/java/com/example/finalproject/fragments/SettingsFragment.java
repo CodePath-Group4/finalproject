@@ -47,8 +47,15 @@ public class SettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         btnChangePassword = view.findViewById(R.id.btnChangePassword);
-        btnLogout = view.findViewById(R.id.btnLogout);
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "btnChangePassword onClick");
+                // TODO: Change the current user's password
+            }
+        });
 
+        btnLogout = view.findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
