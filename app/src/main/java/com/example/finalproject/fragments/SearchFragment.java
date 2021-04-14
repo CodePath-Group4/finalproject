@@ -59,14 +59,10 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         songs = new ArrayList<Song>();
-        for (int i = 0; i < 10; i++) {
-            songs.add(new Song());
-        }
-
         etSearch = view.findViewById(R.id.etSearch);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,8 +89,12 @@ public class SearchFragment extends Fragment {
 
     protected void searchSongs(String searchText) {
 
-        String response = requestAccessToken();
         // TODO: Complete search
+//        String response = requestAccessToken();
+
+        for (int i = 0; i < 10; i++) {
+            songs.add(new Song());
+        }
     }
 
     protected String requestAccessToken() {
