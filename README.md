@@ -77,7 +77,7 @@ Wireframe with navigation shown:
 Interactive wireframe:
 https://www.figma.com/proto/vK3XHi8MqddWZ54iFb2tlf/MusicDiscovery?node-id=2%3A23&scaling=scale-down&page-id=0%3A1
 
-<img src="InteractivePrototype.gif" width=250><br>
+<img src="gifs/InteractivePrototype.gif" width=250><br>
 
 ## Schema 
 ### Models
