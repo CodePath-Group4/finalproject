@@ -79,7 +79,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser();
                 goLoginActivity();
             }
         });
@@ -89,5 +88,6 @@ public class SettingsFragment extends Fragment {
     private void goLoginActivity() {
         Intent i = new Intent(getContext(), LoginActivity.class);
         startActivity(i);
+        getActivity().finish();
     }
 }
