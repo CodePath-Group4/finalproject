@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- TODO: Change the image used for the search fragment -->
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/home_outline_24"
+        android:title="Search"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/user_outline_24"
+        android:title="Profile"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/cog_empty"
+        android:title="Settings"
+        app:showAsAction="always" />
+
+</menu>
