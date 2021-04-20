@@ -90,6 +90,13 @@ public class SearchFragment extends Fragment {
     protected void searchSongs(String searchText) {
 
         // TODO: Complete search
+        // Tentative steps that search should take:
+        // 1. Authenticate to the Spotify API
+        // 2. Search using Spotify API
+        // 3. Compare song IDs of results to spotifyIds in database
+        //      a. If song is not in database, add it along with relevant data
+        // 4. Add songs to list and notify dataset has changed
+        // 5. Profit B)
 //        String response = requestAccessToken();
 
         for (int i = 0; i < 10; i++) {
