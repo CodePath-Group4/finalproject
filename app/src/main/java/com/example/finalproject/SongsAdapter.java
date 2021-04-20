@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.finalproject.models.Song;
 
 import java.util.List;
@@ -64,7 +65,14 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
 
         public void bind(Song song) {
 
-            //TODO: Show album art using Glide
+            String url = "wmhbradio.org/wp-content/uploads/2016/07/music-placeholder.png";
+
+
+            Glide.with(context)
+//                    .load(song.getArtUrl());
+                    .load("https://i.scdn.co/image/ab67616d0000b2731ae2bdc1378da1b440e1f610")
+                    .fitCenter()
+                    .into(ivAlbumArt);
 
             //TODO: Display correct information from each song
             //tvSongName.setText(song.getName());
