@@ -2,65 +2,93 @@ package com.example.finalproject.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.finalproject.R;
+import com.example.finalproject.SongsAdapter;
+import com.example.finalproject.models.Favorite;
+import com.example.finalproject.models.Song;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "ProfileFragment";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView rvFavoriteSongs;
+    private SongsAdapter adapter;
+
+    private List<Song> songs;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        songs = new ArrayList<Song>();
+
+        rvFavoriteSongs = view.findViewById(R.id.rvFavoriteSongs);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvFavoriteSongs.setLayoutManager(layoutManager);
+
+        adapter = new SongsAdapter(getContext(), songs);        // Should be able to use the same SongAdapter used by SearchFragment
+        rvFavoriteSongs.setAdapter(adapter);
+        fetchFavorites();
+    }
+
+    private void fetchFavorites() {
+        Log.i(TAG, "fetchFavorites for user: " + ParseUser.getCurrentUser().getUsername());
+        ParseQuery<Favorite> query = ParseQuery.getQuery(Favorite.class);
+
+        query.include(Favorite.KEY_USER);
+        query.whereEqualTo(Favorite.KEY_USER, ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<Favorite>() {
+            @Override
+            public void done(List<Favorite> favoritesFound, ParseException e) {
+                Log.i(TAG, "fetchFavorites, done");
+                if (e != null) {
+                    Log.e(TAG, "Problem getting favorites", e);
+                    return;
+                }
+
+                Log.i(TAG, "Number of favorites found: " + favoritesFound.size());
+                for (int i = 0; i < favoritesFound.size(); i++) {
+                    Favorite favorite = favoritesFound.get(i);
+                    Song song = (Song) favorite.getSong();
+                    Log.i(TAG, "Song name: " + song.getSongName());
+                    songs.add(song);
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }
