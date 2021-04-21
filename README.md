@@ -38,10 +38,10 @@ Music Discovery allows people to favorite songs and see what songs are popular a
 
 **Progress gifs**
 
-Sprint 1:
+Sprint 1:<br>
 <img src="gifs/Sprint1.gif" width=250><br>
 
-Sprint 2:
+Sprint 2:<br>
 <img src="gifs/Sprint2.gif" width=250><br>
 
 ### 2. Screen Archetypes
