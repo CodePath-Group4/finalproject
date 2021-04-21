@@ -10,17 +10,27 @@ import com.parse.ParseObject;
 public class Song extends ParseObject {
     public static final String TAG = "Song.class";
 
-    public static final String KEY_SONG_NAME = "songName";
     public static final String KEY_SPOTIFY_ID = "spotifyId";
+    public static final String KEY_SONG_NAME = "songName";
+    public static final String KEY_ALBUM_NAME = "albumName";
+    public static final String KEY_ARTIST_NAME = "artistName";
     public static final String KEY_IMAGE_URL = "imageUrl";
     public static final String KEY_CREATED_AT = "createdAt";
+
+    public void setSpotifyId(String songId) {
+        put(KEY_SPOTIFY_ID, songId);
+    }
 
     public void setSongName(String songName) {
         put(KEY_SONG_NAME, songName);
     }
 
-    public void setSpotifyId(String songId) {
-        put(KEY_SPOTIFY_ID, songId);
+    public void setAlbumName(String albumName) {
+        put(KEY_ALBUM_NAME, albumName);
+    }
+
+    public void setArtistName(String artistName) {
+        put(KEY_ARTIST_NAME, artistName);
     }
 
     public void setImageUrl(String imageUrl) {
@@ -28,12 +38,13 @@ public class Song extends ParseObject {
     }
 
 
+    public String getSpotifyId() {
+        return getString(KEY_SPOTIFY_ID);
+    }
+
     public String getSongName() {
         try {
             return fetchIfNeeded().getString(KEY_SONG_NAME);
-//        } catch (ParseException e) {
-//            Log.e(TAG, "getSongName encountered error: " + e);
-//            e.printStackTrace();
         } catch (Exception e) {
             Log.e(TAG, "getSongName encountered error: " + e);
         }
@@ -41,11 +52,33 @@ public class Song extends ParseObject {
         return null;
     }
 
-    public String getSpotifyId() {
-        return getString(KEY_SPOTIFY_ID);
+    public String getAlbumName() {
+        try {
+            return fetchIfNeeded().getString(KEY_ALBUM_NAME);
+        } catch (Exception e) {
+            Log.e(TAG, "getAlbumName encountered error: " + e);
+        }
+
+        return null;
+    }
+
+    public String getArtistName() {
+        try {
+            return fetchIfNeeded().getString(KEY_ARTIST_NAME);
+        } catch (Exception e) {
+            Log.e(TAG, "getArtistName encountered error: " + e);
+        }
+
+        return null;
     }
 
     public String getImageUrl() {
-        return getString(KEY_IMAGE_URL);
+        try {
+            return fetchIfNeeded().getString(KEY_IMAGE_URL);
+        } catch (Exception e) {
+            Log.e(TAG, "getImageUrl encountered error: " + e);
+        }
+
+        return null;
     }
 }
