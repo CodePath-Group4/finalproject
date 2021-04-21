@@ -19,6 +19,7 @@
         android:layout_toEndOf="@+id/ivAlbumArt"
         android:layout_marginStart="5dp"
         android:textSize="20sp"
+        android:textColor="@color/black"
         android:text="Song Name"/>
 
     <TextView
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvSongName"
         android:layout_alignLeft="@+id/tvSongName"
+        android:textColor="@color/black"
         android:text="By: Artist Name"/>
 
     <TextView
@@ -35,6 +37,29 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvArtistName"
         android:layout_alignLeft="@+id/tvSongName"
+        android:textColor="@color/black"
         android:text="Album Name" />
+
+    <LinearLayout
+        android:layout_alignBottom="@+id/ivAlbumArt"
+        android:layout_alignLeft="@+id/tvSongName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLike"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ufi_heart" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnFavorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ufi_save" />
+    </LinearLayout>
+
+
 
 </RelativeLayout>
