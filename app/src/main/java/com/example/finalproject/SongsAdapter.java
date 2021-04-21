@@ -48,6 +48,11 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         return songs.size();
     }
 
+    public void clear() {
+        songs.clear();
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivAlbumArt;
