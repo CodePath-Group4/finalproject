@@ -27,7 +27,7 @@ Music Discovery allows people to favorite songs and see what songs are popular a
 - [x] User can register an account and log in
 - [ ] User can search, like, and favorite songs
     - [ ] Songs show title, artist, and album art
-- [ ] User can view their profile and show their favorited songs
+- [x] User can view their profile and show their favorited songs
 - [x] Settings screen where user can change their password or logout
 
 **Optional Nice-to-have Stories**
@@ -38,8 +38,11 @@ Music Discovery allows people to favorite songs and see what songs are popular a
 
 **Progress gifs**
 
+Sprint 1:
 <img src="gifs/Sprint1.gif" width=250><br>
 
+Sprint 2:
+<img src="gifs/Sprint2.gif" width=250><br>
 
 ### 2. Screen Archetypes
 
