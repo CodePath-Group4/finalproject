@@ -3,6 +3,7 @@ package com.example.finalproject;
 import android.app.Application;
 
 import com.example.finalproject.models.Favorite;
+import com.example.finalproject.models.Like;
 import com.example.finalproject.models.Song;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -30,6 +31,7 @@ public class ParseApplication extends Application {
         // any network interceptors must be added with the Configuration Builder given this syntax
 
         ParseObject.registerSubclass(Song.class);
+        ParseObject.registerSubclass(Like.class);
         ParseObject.registerSubclass(Favorite.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
