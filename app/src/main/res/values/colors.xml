@@ -14,5 +14,11 @@
     <color name="gray">#999999</color>
     <color name="light_gray">#C1C1C1</color>
     <color name="blue">#282EED</color>
+    <color name="med_blue">#4F54EA</color>
     <color name="light_blue">#56B4EF</color>
+
+    <!-- Button colors -->
+    <color name="base">#1ED760</color>       <!-- Spotify green -->
+    <color name="focused">#48D67A</color>
+    <color name="pressed">#72D394</color>
 </resources>
