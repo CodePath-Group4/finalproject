@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.finalproject.R;
 import com.example.finalproject.SongsAdapter;
@@ -32,6 +33,7 @@ public class ProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";
 
+    private TextView tvWelcome;
     private RecyclerView rvFavoriteSongs;
     private SongsAdapter adapter;
 
@@ -53,6 +55,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         songs = new ArrayList<Song>();
+
+        tvWelcome = view.findViewById(R.id.tvWelcome);
+        tvWelcome.setText(ParseUser.getCurrentUser().getUsername() + "'s Favorites");
 
         rvFavoriteSongs = view.findViewById(R.id.rvFavoriteSongs);
 
