@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="-1dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="New Password"
@@ -25,7 +24,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="-1dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="2dp"
         android:ems="10"
@@ -34,25 +32,25 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnChangePassword"
-        android:layout_width="215dp"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="4dp"
+        android:layout_below="@id/etNewPassword2"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button"
         android:text="Change Password" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogout"
-        android:layout_width="132dp"
-        android:layout_height="58dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/btnChangePassword"
-        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_gravity="bottom"
-        android:layout_marginStart="274dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button"
         android:text="Log out" />
 
 </RelativeLayout>

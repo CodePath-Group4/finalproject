@@ -47,8 +47,8 @@
             android:layout_weight="1"
             android:layout_marginRight="10dp"
             android:textColor="@color/white"
-            android:backgroundTint="@color/blue"
-            android:backgroundTintMode="multiply"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_button"
             android:text="Login" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -58,8 +58,8 @@
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:textColor="@color/white"
-            android:backgroundTint="@color/blue"
-            android:backgroundTintMode="multiply"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_button"
             android:text="Create Account" />
 
     </LinearLayout>
