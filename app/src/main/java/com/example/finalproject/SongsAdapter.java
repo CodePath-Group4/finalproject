@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.List;
 
@@ -69,6 +71,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         private TextView tvLikeCounter;
         private Button btnLike;
         private Button btnFavorite;
+
+        int likes;
         boolean liked;
         boolean favorited;
 
@@ -84,6 +88,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
             btnLike = itemView.findViewById(R.id.btnLike);
             btnFavorite = itemView.findViewById(R.id.btnFavorite);
 
+            likes = 0;
             liked = false;
             favorited = false;
         }
@@ -115,10 +120,16 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
                 public void onClick(View v) {
                     Log.i(TAG, "ivLike, onClick");
                     liked = !liked;
-                    if (liked)
+                    if (liked) {
                         btnLike.setBackgroundResource(R.drawable.ufi_heart_active);
-                    else
+                        likes += 1;
+                        addLike(song);
+                    } else {
                         btnLike.setBackgroundResource(R.drawable.ufi_heart);
+                        likes -= 1;
+                        removeLike(song);
+                    }
+                    tvLikeCounter.setText(Integer.toString(likes));
                 }
             });
 
@@ -127,10 +138,111 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
                 public void onClick(View v) {
                     Log.i(TAG, "ivFavorite, onClick");
                     favorited = !favorited;
-                    if (favorited)
+                    if (favorited) {
                         btnFavorite.setBackgroundResource(R.drawable.ufi_save_active);
-                    else
+                        addFavorite(song);
+                    } else {
                         btnFavorite.setBackgroundResource(R.drawable.ufi_save);
+                        removeFavorite(song);
+                    }
+                }
+            });
+        }
+
+        public void addLike(Song song) {
+            Like like = new Like();
+            like.setSong(song);
+            like.setUser(ParseUser.getCurrentUser());
+
+            like.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null) {
+                        Log.e(TAG, "Error liking song", e);
+                        Toast.makeText(context, "Error liking song.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Log.i(TAG, "User has liked song with id " + song.getObjectId());
+
+                }
+            });
+        }
+
+        public void addFavorite(Song song) {
+            Favorite favorite = new Favorite();
+            favorite.setSong(song);
+            favorite.setUser(ParseUser.getCurrentUser());
+
+            favorite.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null) {
+                        Log.e(TAG, "Error favoriting song", e);
+                        Toast.makeText(context, "Error favoriting song.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Log.i(TAG, "User has favorited song with id " + song.getObjectId());
+
+                }
+            });
+        }
+
+        public void removeLike(Song song) {
+            Log.i(TAG, "removeLike");
+            ParseQuery<Like> query = ParseQuery.getQuery(Like.class);
+
+            query.include(Like.KEY_SONG);
+            query.include(Like.KEY_USER);
+            query.whereEqualTo(Like.KEY_SONG, ParseObject.createWithoutData(Song.class, song.getObjectId()));
+            query.whereEqualTo(Like.KEY_USER, ParseUser.getCurrentUser());
+            query.findInBackground(new FindCallback<Like>() {
+                @Override
+                public void done(List<Like> likesFound, ParseException e) {
+                    Log.i(TAG, "removeLike, done");
+                    if (e != null) {
+                        Log.e(TAG, "Problem getting likes", e);
+                        return;
+                    }
+
+                    if (likesFound.size() == 1) {
+                        Log.i(TAG, "Removing like of song with ID " + song.getObjectId());
+                        Like like = likesFound.get(0);
+                        like.deleteInBackground();
+                    } else {
+                        Log.i(TAG, likesFound.size() + " likes by User for song with ID " + song.getObjectId());
+                        // This should never occur
+                    }
+                }
+            });
+        }
+
+        public void removeFavorite(Song song) {
+            Log.i(TAG, "removeFavorite");
+            ParseQuery<Favorite> query = ParseQuery.getQuery(Favorite.class);
+
+            query.include(Favorite.KEY_SONG);
+            query.include(Favorite.KEY_USER);
+            query.whereEqualTo(Favorite.KEY_SONG, ParseObject.createWithoutData(Song.class, song.getObjectId()));
+            query.whereEqualTo(Favorite.KEY_USER, ParseUser.getCurrentUser());
+            query.findInBackground(new FindCallback<Favorite>() {
+                @Override
+                public void done(List<Favorite> favoritesFound, ParseException e) {
+                    Log.i(TAG, "removeFavorite, done");
+                    if (e != null) {
+                        Log.e(TAG, "Problem getting favorites", e);
+                        return;
+                    }
+
+                    if (favoritesFound.size() == 1) {
+                        Log.i(TAG, "Removing favorite of song with ID " + song.getObjectId());
+                        Favorite favorite = favoritesFound.get(0);
+                        favorite.deleteInBackground();
+                    } else {
+                        Log.i(TAG, favoritesFound.size() + " favorites by User for song with ID " + song.getObjectId());
+                        // This should never occur
+                    }
                 }
             });
         }
@@ -151,9 +263,10 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
                         return;
                     }
 
-                    Log.i(TAG, "Number of likes found: " + likesFound.size());
+                    likes = likesFound.size();
+                    Log.i(TAG, "Number of likes found: " + likes);
 
-                    tvLikeCounter.setText(Integer.toString(likesFound.size()));
+                    tvLikeCounter.setText(Integer.toString(likes));
                 }
             });
         }
@@ -210,7 +323,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
                         btnFavorite.setBackgroundResource(R.drawable.ufi_save_active);
                     } else {
                         Log.i(TAG, favoritesFound.size() + " favorites by User for song with ID " + song.getObjectId());
-                        // liked and btnLike are default false, so we don't need to do anything else here
+                        // favorited and btnFavorite are default false, so we don't need to do anything else here
                     }
                 }
             });
