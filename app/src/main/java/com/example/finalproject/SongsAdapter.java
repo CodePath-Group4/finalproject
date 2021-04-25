@@ -13,7 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.finalproject.models.Favorite;
+import com.example.finalproject.models.Like;
 import com.example.finalproject.models.Song;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -59,6 +66,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         private TextView tvSongName;
         private TextView tvArtistName;
         private TextView tvAlbumName;
+        private TextView tvLikeCounter;
         private Button btnLike;
         private Button btnFavorite;
         boolean liked;
@@ -72,6 +80,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
             tvSongName = itemView.findViewById(R.id.tvSongName);
             tvArtistName = itemView.findViewById(R.id.tvArtistName);
             tvAlbumName = itemView.findViewById(R.id.tvAlbumName);
+            tvLikeCounter = itemView.findViewById(R.id.tvLikeCounter);
             btnLike = itemView.findViewById(R.id.btnLike);
             btnFavorite = itemView.findViewById(R.id.btnFavorite);
 
@@ -97,6 +106,9 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
             tvAlbumName.setText(song.getAlbumName());
 //            tvAlbumName.setText("FILLER ALBUM NAME");
 
+            queryLikes(song);
+            queryUserLiked(song);
+            queryUserFavorited(song);
 
             btnLike.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,6 +131,87 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
                         btnFavorite.setBackgroundResource(R.drawable.ufi_save_active);
                     else
                         btnFavorite.setBackgroundResource(R.drawable.ufi_save);
+                }
+            });
+        }
+
+        public void queryLikes(Song song) {
+            Log.i(TAG, "queryLikes");
+            ParseQuery<Like> query = ParseQuery.getQuery(Like.class);
+
+            query.include(Like.KEY_SONG);
+            query.include(Like.KEY_USER);
+            query.whereEqualTo(Like.KEY_SONG, ParseObject.createWithoutData(Song.class, song.getObjectId()));
+            query.findInBackground(new FindCallback<Like>() {
+                @Override
+                public void done(List<Like> likesFound, ParseException e) {
+                    Log.i(TAG, "queryLikes, done");
+                    if (e != null) {
+                        Log.e(TAG, "Problem getting likes", e);
+                        return;
+                    }
+
+                    Log.i(TAG, "Number of likes found: " + likesFound.size());
+
+                    tvLikeCounter.setText(Integer.toString(likesFound.size()));
+                }
+            });
+        }
+
+        public void queryUserLiked(Song song) {
+            Log.i(TAG, "queryUserLiked");
+            ParseQuery<Like> query = ParseQuery.getQuery(Like.class);
+
+            query.include(Like.KEY_SONG);
+            query.include(Like.KEY_USER);
+            query.whereEqualTo(Like.KEY_SONG, ParseObject.createWithoutData(Song.class, song.getObjectId()));
+            query.whereEqualTo(Like.KEY_USER, ParseUser.getCurrentUser());
+            query.findInBackground(new FindCallback<Like>() {
+                @Override
+                public void done(List<Like> likesFound, ParseException e) {
+                    Log.i(TAG, "queryUserLiked, done");
+                    if (e != null) {
+                        Log.e(TAG, "Problem getting likes", e);
+                        return;
+                    }
+
+                    if (likesFound.size() == 1) {
+                        Log.i(TAG, "User has liked song with ID " + song.getObjectId());
+                        liked = true;
+                        btnLike.setBackgroundResource(R.drawable.ufi_heart_active);
+                    } else {
+                        Log.i(TAG, likesFound.size() + " likes by User for song with ID " + song.getObjectId());
+                        // liked and btnLike are default false, so we don't need to do anything else here
+                    }
+                }
+            });
+        }
+
+        public void queryUserFavorited(Song song) {
+            Log.i(TAG, "queryUserFavorited");
+            ParseQuery<Favorite> query = ParseQuery.getQuery(Favorite.class);
+
+            query.include(Favorite.KEY_SONG);
+            query.include(Favorite.KEY_USER);
+            query.whereEqualTo(Favorite.KEY_SONG, ParseObject.createWithoutData(Song.class, song.getObjectId()));
+            query.whereEqualTo(Favorite.KEY_USER, ParseUser.getCurrentUser());
+            query.findInBackground(new FindCallback<Favorite>() {
+                @Override
+                public void done(List<Favorite> favoritesFound, ParseException e) {
+                    Log.i(TAG, "queryUserFavorited, done");
+                    if (e != null) {
+                        Log.e(TAG, "Problem getting favorites", e);
+                        return;
+                    }
+
+                    if (favoritesFound.size() == 1) {
+                        Log.i(TAG, "User has favorited song with ID " + song.getObjectId());
+                        favorited = true;
+                        btnFavorite.setBackgroundResource(R.drawable.ufi_save_active);
+                    } else {
+                        Log.i(TAG, favoritesFound.size() + " favorites by User for song with ID " + song.getObjectId());
+                        // liked and btnLike are default false, so we don't need to do anything else here
+                    }
                 }
             });
         }

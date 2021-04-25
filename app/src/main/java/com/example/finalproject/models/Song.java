@@ -16,6 +16,7 @@ public class Song extends ParseObject {
     public static final String KEY_ARTIST_NAME = "artistName";
     public static final String KEY_IMAGE_URL = "imageUrl";
     public static final String KEY_CREATED_AT = "createdAt";
+    public static final String KEY_ID = "objectId";
 
     public void setSpotifyId(String songId) {
         put(KEY_SPOTIFY_ID, songId);
@@ -81,4 +82,14 @@ public class Song extends ParseObject {
 
         return null;
     }
+
+//    public String getObjectId() {
+//        try {
+//            return fetchIfNeeded().getString(KEY_ID);
+//        } catch (Exception e) {
+//            Log.e(TAG, "getObjectId encountered error: " + e);
+//        }
+//
+//        return null;
+//    }
 }

@@ -47,17 +47,28 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
+        <TextView
+            android:id="@+id/tvLikeCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="12" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLike"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginLeft="3dp"
             android:background="@drawable/ufi_heart" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnFavorite"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/ufi_save" />
+
     </LinearLayout>
 
 
