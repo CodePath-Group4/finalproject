@@ -22,6 +22,9 @@ import com.codepath.asynchttpclient.callback.TextHttpResponseHandler;
 import com.example.finalproject.R;
 import com.example.finalproject.SongsAdapter;
 import com.example.finalproject.models.Song;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +78,6 @@ public class SearchFragment extends Fragment {
                 }
 
                 searchSongs(searchText);
-                adapter.notifyDataSetChanged();
             }
         });
 
@@ -90,11 +92,43 @@ public class SearchFragment extends Fragment {
     protected void searchSongs(String searchText) {
 
         // TODO: Complete search
-//        String response = requestAccessToken();
+        // Tentative steps that search should take:
+        // 1. Authenticate to the Spotify API
+        // 2. Search using Spotify API
+        // 3. Compare song IDs of results to spotifyIds in database
+        //      a. If song is not in database, add it along with relevant data
+        // 4. Add songs to list and notify dataset has changed
+        // 5. Profit B)
 
-        for (int i = 0; i < 10; i++) {
-            songs.add(new Song());
-        }
+        adapter.clear();
+        queryAllSongs();        // For now, just showing all songs in the Back4App database
+    }
+
+    private void queryAllSongs() {
+        Log.i(TAG, "queryAllSongs");
+        ParseQuery<Song> query = ParseQuery.getQuery(Song.class);
+
+        query.include(Song.KEY_SONG_NAME);
+//        query.whereEqualTo(Favorite.KEY_USER, ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<Song>() {
+            @Override
+            public void done(List<Song> songsFound, ParseException e) {
+                Log.i(TAG, "queryAllSongs, done");
+                if (e != null) {
+                    Log.e(TAG, "Problem getting songs", e);
+                    return;
+                }
+
+                Log.i(TAG, "Number of songs found: " + songsFound.size());
+                for (int i = 0; i < songsFound.size(); i++) {
+                    Song song = (Song) songsFound.get(i);
+                    Log.i(TAG, "Song name: " + song.getSongName());
+                    songs.add(song);
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     protected String requestAccessToken() {

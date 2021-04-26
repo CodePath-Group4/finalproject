@@ -7,14 +7,13 @@
     android:layout_margin="16dp"
     android:orientation="vertical">
 
-    <!-- TODO: Replace image and buttons with better graphics -->
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivLogo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/user_filled_24" />
+        app:srcCompat="@drawable/logo" />
 
     <EditText
         android:id="@+id/etUsername"
@@ -48,8 +47,8 @@
             android:layout_weight="1"
             android:layout_marginRight="10dp"
             android:textColor="@color/white"
-            android:backgroundTint="@color/blue"
-            android:backgroundTintMode="multiply"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_button"
             android:text="Login" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -59,8 +58,8 @@
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:textColor="@color/white"
-            android:backgroundTint="@color/blue"
-            android:backgroundTintMode="multiply"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_button"
             android:text="Create Account" />
 
     </LinearLayout>
