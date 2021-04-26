@@ -44,8 +44,8 @@ Sprint 1:<br>
 Sprint 2:<br>
 <img src="gifs/Sprint2.gif" width=250><br>
 
-Sprint 3:
-<img src="gifs/Sprint3.gif" width=350><br>
+Sprint 3:<br>
+<img src="gifs/Sprint3.gif" width=250><br>
 
 ### 2. Screen Archetypes
 
