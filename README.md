@@ -47,6 +47,9 @@ Sprint 2:<br>
 Sprint 3:<br>
 <img src="gifs/Sprint3.gif" width=250><br>
 
+Sprint 4:<br>
+<img src="gifs/Sprint4.gif" width=250><br>
+
 ### 2. Screen Archetypes
 
 * Login screen
