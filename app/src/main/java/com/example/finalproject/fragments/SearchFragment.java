@@ -101,7 +101,8 @@ public class SearchFragment extends Fragment {
         // 5. Profit B)
 
         adapter.clear();
-        queryAllSongs();        // For now, just showing all songs in the Back4App database
+//        queryAllSongs();        // For now, just showing all songs in the Back4App database
+        querySongs(searchText);
     }
 
     private void queryAllSongs() {
@@ -130,6 +131,35 @@ public class SearchFragment extends Fragment {
             }
         });
     }
+
+
+    private void querySongs(String songName) {
+        Log.i(TAG, "querySongs");
+        ParseQuery<Song> query = ParseQuery.getQuery(Song.class);
+
+        query.include(Song.KEY_SONG_NAME);
+        query.whereContains(Song.KEY_ARTIST_NAME, songName);
+        query.findInBackground(new FindCallback<Song>() {
+            @Override
+            public void done(List<Song> songsFound, ParseException e) {
+                Log.i(TAG, "querySongs, done");
+                if (e != null) {
+                    Log.e(TAG, "Problem getting songs", e);
+                    return;
+                }
+
+                Log.i(TAG, "Number of songs found: " + songsFound.size());
+                for (int i = 0; i < songsFound.size(); i++) {
+                    Song song = (Song) songsFound.get(i);
+                    Log.i(TAG, "Song name: " + song.getSongName());
+                    songs.add(song);
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
 
     protected String requestAccessToken() {
         // Trying to do Client Credentials Flow from https://developer.spotify.com/documentation/general/guides/authorization-guide/
