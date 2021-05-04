@@ -294,7 +294,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
                         btnLike.setBackgroundResource(R.drawable.ufi_heart_active);
                     } else {
                         Log.i(TAG, likesFound.size() + " likes by User for song with ID " + song.getObjectId());
-                        // liked and btnLike are default false, so we don't need to do anything else here
+                        liked = false;
+                        btnLike.setBackgroundResource(R.drawable.ufi_heart);
                     }
                 }
             });
@@ -323,7 +324,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
                         btnFavorite.setBackgroundResource(R.drawable.ufi_save_active);
                     } else {
                         Log.i(TAG, favoritesFound.size() + " favorites by User for song with ID " + song.getObjectId());
-                        // favorited and btnFavorite are default false, so we don't need to do anything else here
+                        favorited = false;
+                        btnFavorite.setBackgroundResource(R.drawable.ufi_save);
                     }
                 }
             });
